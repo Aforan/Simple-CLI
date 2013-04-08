@@ -1,0 +1,43 @@
+COMPILATION and RUNNING:
+	Theres a Makefile included, so just type [make] to compile.
+	There is also a shell script to run the program, just run 
+	[./terminal] to run the interpreter.  (terminal should have 
+	execute permissions, if not [chmod a+x terminal] will fix)
+
+INTERPRETER USAGE
+	    # run [filename]
+	    # background [filename]
+	    # murder [pid]
+	    # script
+	    # quit
+
+SCRIPT USAGE
+
+Type script from the interpreter to get to the script module
+Type Bash syntax scripts here t be executed
+
+Commands: (All commands need to be on a newline by themselves, line will not
+	   be printed to file)
+
+	   :q			Quit script module and do not run
+	   :qr			Quit script module and run script
+	   :qs [filename]	Quit script module, save to filename 
+	       			and run script
+IMPLEMENTATION NOTEs:
+
+RUN: The run command takes the filename, forks a child process and executes the
+     filename, the parent process will wait for the child to finish.
+
+BACKGROUND: The background command takes the filename, forks a child process, 
+	    freopens stdout, stdin and stderr to /dev/null and executes the
+	    file, the parent process does not wait for the completion of the 
+	    program. So the child process should be murdered if it is not 
+	    expected to finish.
+
+MURDER: The Murder command wil call kill on the given pid and display the 
+	result of the kill call.
+
+SCRIPT:	The Script command will take user input, append if to a buffer and 
+	write the buffer to file when completed.  The file will then be used 
+	as input to the bash executable using the run module.  The temporary 
+	file is then removed frim the filesystem.
